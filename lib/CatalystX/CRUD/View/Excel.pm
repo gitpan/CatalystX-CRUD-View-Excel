@@ -3,10 +3,9 @@ package CatalystX::CRUD::View::Excel;
 use warnings;
 use strict;
 use base qw( Catalyst::View::Excel::Template::Plus CatalystX::CRUD );
-use Data::Dump qw( dump );
 use Path::Class;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -14,7 +13,42 @@ CatalystX::CRUD::View::Excel - view CRUD search/list results in Excel format
 
 =head1 SYNOPSIS
 
+ package MyApp::View::Excel;
+ use base qw( CatalystX::CRUD::View::Excel );
+ 
+ __PACKAGE__->config(
+    TEMPLATE_EXTENSION => 'tt',
+    etp_config => {
+        INCLUDE => [ 'my/tt/path', __PACKAGE__->path_to('root') ],
+    }
+ );
+ 
+ 1;
+ 
 =cut
+
+=head1 DESCRIPTION
+
+CatalystX::CRUD::View::Excel makes it easy to export your search results
+as an Excel document. If you are using the other CatalystX::CRUD Controller
+and Model classes, your default end() method might look something like this:
+
+ sub end : ActionClass('RenderView') {
+    my ( $self, $c ) = @_;
+    if ( $c->req->param('as_xls') ) {
+        $c->stash->{current_view} = 'Excel';
+    }
+ }
+
+and get a .xls document for any search or list by simply adding a C<as_xls=1>
+param pair to your url query.
+
+B<NOTE:> If you are paging results, then you will need to turn off paging
+in order to get all your results in a single .xls file. You can do this
+with the standard C<_no_page> param as defined in the CatalystX::CRUD::Model
+API.
+
+=head1 METHODS
 
 =head2 new
 
@@ -208,6 +242,10 @@ Copyright 2007 by the Regents of the University of Minnesota.
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
 
+=head1 SEE ALSO
+
+Catalyst::View::Excel::Template::Plus,
+CatalystX::CRUD
 
 =cut
 

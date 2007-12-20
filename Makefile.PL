@@ -11,7 +11,9 @@ WriteMakefile(
     PREREQ_PM => {
         'Test::More' => 0,
         'CatalystX::CRUD' => 0.17,
-        'Excel::Template::Plus' => 0,
+        'Catalyst::View::Excel::Template::Plus' => 0,
+        'Path::Class'     => 0,
+
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'CatalystX-CRUD-View-Excel-*' },
