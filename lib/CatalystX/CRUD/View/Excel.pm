@@ -5,7 +5,7 @@ use strict;
 use base qw( Catalyst::View::Excel::Template::Plus CatalystX::CRUD );
 use Path::Class;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -60,7 +60,7 @@ config values.
 sub new {
     my ( $class, $c, $args ) = @_;
     my $self = $class->NEXT::new( $c, $args );
-    $self->etp_config->{INCLUDE}        ||= [ $c->config->{root} ];
+    $self->etp_config->{INCLUDE_PATH}   ||= [ $c->config->{root} ];
     $self->config->{TEMPLATE_EXTENSION} ||= 'tt';
     return $self;
 }
@@ -118,7 +118,7 @@ Search the TT include path to see if I<path> really exists.
 
 sub template_exists {
     my ( $self, $template ) = @_;
-    for my $path ( @{ $self->etp_config->{INCLUDE} } ) {
+    for my $path ( @{ $self->etp_config->{INCLUDE_PATH} } ) {
         return 1 if -s file( $path, $template );
     }
     return 0;

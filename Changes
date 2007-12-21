@@ -7,5 +7,8 @@ Revision history for CatalystX-CRUD-View-Excel
         * Added SYNOPSIS and DESCRIPTION to docs.
         * Updated Makefile.PL for correct dependencies.
 
+0.03    21 Dec 2007
+        * fix INCLUDE -> INCLUDE_PATH bug (it was wrong in ETP docs)
+
 
 
