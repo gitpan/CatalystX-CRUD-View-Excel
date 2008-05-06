@@ -10,5 +10,11 @@ Revision history for CatalystX-CRUD-View-Excel
 0.03    21 Dec 2007
         * fix INCLUDE -> INCLUDE_PATH bug (it was wrong in ETP docs)
 
+0.04    06 May 2008
+        * escape all values with 'html' filter in default template
+        * support iterator as well as results arrayref
+
+
+
 
 
