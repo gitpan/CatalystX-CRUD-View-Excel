@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                CatalystX-CRUD-View-Excel
-version:             0.04
+version:             0.05
 abstract:            view CRUD search/list results in Excel format
 license:             ~
 author:              
@@ -9,7 +9,7 @@ generated_by:        ExtUtils::MakeMaker version 6.42
 distribution_type:   module
 requires:     
     Catalyst::View::Excel::Template::Plus: 0
-    CatalystX::CRUD:               0.17
+    CatalystX::CRUD:               0.27
     Path::Class:                   0
     Test::More:                    0
 meta-spec:

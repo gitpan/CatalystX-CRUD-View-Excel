@@ -14,6 +14,9 @@ Revision history for CatalystX-CRUD-View-Excel
         * escape all values with 'html' filter in default template
         * support iterator as well as results arrayref
 
+0.05    13 June 2008
+        * tweek default template for CX::CRUD 0.27 API
+
 
 
 

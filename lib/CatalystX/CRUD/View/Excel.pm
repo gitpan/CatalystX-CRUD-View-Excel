@@ -2,13 +2,13 @@ package CatalystX::CRUD::View::Excel;
 
 use warnings;
 use strict;
-use base qw( 
-    Catalyst::View::Excel::Template::Plus 
-    CatalystX::CRUD 
+use base qw(
+    Catalyst::View::Excel::Template::Plus
+    CatalystX::CRUD
 );
 use Path::Class;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 NAME
 
@@ -84,10 +84,10 @@ sub process {
     my $template = $self->get_template_filename($c);
 
     ( defined $template )
-        || die 'No template specified for rendering';
+        || $self->throw_error('No template specified for rendering');
 
     # does $template exist? otherwise create one ad-hoc
-    unless ( $self->template_exists($template) ) {
+    unless ( $self->template_exists( $c, $template ) ) {
         $template = \( $self->results_template($c) );
     }
 
@@ -120,9 +120,12 @@ Search the TT include path to see if I<path> really exists.
 =cut
 
 sub template_exists {
-    my ( $self, $template ) = @_;
+    my ( $self, $c, $template ) = @_;
     for my $path ( @{ $self->etp_config->{INCLUDE_PATH} } ) {
-        return 1 if -s file( $path, $template );
+        if ( -s file( $path, $template ) ) {
+            $c->log->debug("using Excel template: $template") if $c->debug;
+            return 1;
+        }
     }
     return 0;
 }
@@ -179,22 +182,16 @@ sub results_template {
 [% END %]
 <workbook>
     <worksheet name="[% c.controller.model_name.replace('\\W+','_') %]">
-     [% myfields = c.controller.field_names %]
+     [% myfields = c.controller.field_names(c) %]
       <row>
      [% FOR fn = myfields %]
        <bold><cell>[% fn | html %]</cell></bold>
      [% END %]
       </row>
-     [% IF results.iterator;
-            WHILE (r = results.iterator.next);
-                PROCESS make_row;
-            END;
-        ELSE;
-            FOR r = results.results;
-                PROCESS make_row;
-            END;
+     [% WHILE (r = results.next);
+            PROCESS make_row;
         END;
-     %]
+      %]
     </worksheet>
 </workbook>
 TT

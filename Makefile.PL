@@ -10,7 +10,7 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
-        'CatalystX::CRUD' => 0.17,
+        'CatalystX::CRUD' => 0.27,
         'Catalyst::View::Excel::Template::Plus' => 0,
         'Path::Class'     => 0,
 
