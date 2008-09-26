@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                CatalystX-CRUD-View-Excel
-version:             0.05
+version:             0.06
 abstract:            view CRUD search/list results in Excel format
 license:             ~
 author:              

@@ -17,6 +17,10 @@ Revision history for CatalystX-CRUD-View-Excel
 0.05    13 June 2008
         * tweek default template for CX::CRUD 0.27 API
 
+0.06    26 Sept 2008
+        * fix doc re: config INCLUDE_PATH variable
+        * switch to Class::C3
+
 
 
 

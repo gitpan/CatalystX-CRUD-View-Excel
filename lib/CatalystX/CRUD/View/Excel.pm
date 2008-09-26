@@ -6,9 +6,10 @@ use base qw(
     Catalyst::View::Excel::Template::Plus
     CatalystX::CRUD
 );
+use Class::C3;
 use Path::Class;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 =head1 NAME
 
@@ -22,7 +23,7 @@ CatalystX::CRUD::View::Excel - view CRUD search/list results in Excel format
  __PACKAGE__->config(
     TEMPLATE_EXTENSION => 'tt',
     etp_config => {
-        INCLUDE => [ 'my/tt/path', __PACKAGE__->path_to('root') ],
+        INCLUDE_PATH => [ 'my/tt/path', __PACKAGE__->path_to('root') ],
     }
  );
  
@@ -62,7 +63,7 @@ config values.
 
 sub new {
     my ( $class, $c, $args ) = @_;
-    my $self = $class->NEXT::new( $c, $args );
+    my $self = $class->next::method( $c, $args );
     $self->etp_config->{INCLUDE_PATH}   ||= [ $c->config->{root} ];
     $self->config->{TEMPLATE_EXTENSION} ||= 'tt';
     return $self;
