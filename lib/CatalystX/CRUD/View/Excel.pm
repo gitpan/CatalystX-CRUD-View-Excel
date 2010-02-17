@@ -6,10 +6,11 @@ use base qw(
     Catalyst::View::Excel::Template::Plus
     CatalystX::CRUD
 );
-use Class::C3;
+use MRO::Compat;
+use mro 'c3';
 use Path::Class;
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head1 NAME
 
@@ -84,6 +85,8 @@ sub process {
 
     my $template = $self->get_template_filename($c);
 
+    $c->log->debug("template_filename: $template") if $c->debug;
+
     ( defined $template )
         || $self->throw_error('No template specified for rendering');
 
@@ -147,7 +150,7 @@ method.
 sub get_template_filename {
     my ( $self, $c ) = @_;
     $c->stash->{template}
-        || ( $c->action . '.xls.' . $self->config->{TEMPLATE_EXTENSION} );
+        || ( $c->action . '.xls' . $self->config->{TEMPLATE_EXTENSION} );
 }
 
 =head2 get_filename( I<context> )
